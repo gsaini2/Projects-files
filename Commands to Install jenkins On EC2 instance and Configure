@@ -1,0 +1,40 @@
+Install Jenkins on EC2 and create Ci CD pipeline 
+
+1. Install Java 17
+
+sudo apt update
+sudo apt install openjdk-17-jdk -y
+
+2. Verify Java Version
+
+java -version
+Ensure it shows Java 17.
+
+3. Install Jenkins 
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+
+4. enable Jenkins
+
+sudo systemctl enable jenkins
+
+5. Start jenkins
+
+sudo systemctl start jenkins
+
+6. Access jenkins in browser
+
+http://ec2-instance-public-ip:8080
+
+7. Enter admin password ..you will get the password with below command 
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+Then configure jenkins 
