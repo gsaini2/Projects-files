@@ -1,0 +1,67 @@
+Great to hear that you're able to log in to WordPress! Here's a comprehensive list of all the commands we've used so far, along with explanations for each:
+1. Update and Install Apache, PHP, and MariaDB
+sudo apt update -y                   # Update the package list for Ubuntu
+sudo apt upgrade -y                  # Upgrade installed packages to the latest versions
+sudo apt install apache2 -y          # Install Apache web server
+sudo apt install mariadb-server -y   # Install MariaDB database server
+sudo apt install php libapache2-mod-php php-mysql -y  # Install PHP and MySQL support for Apache
+
+
+2. MariaDB Database Setup
+Here we set up the MariaDB database for WordPress:
+
+sudo mysql -u root -p  # Log into MariaDB as the root user
+
+Then inside MariaDB, we ran the following SQL commands to create a WordPress database, a user, and grant privileges:
+CREATE DATABASE wordpress;
+CREATE USER 'wpuser'@'localhost' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+3. Download and Set Up WordPress
+These commands were used to download WordPress and configure the necessary files:
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+tar -xvzf latest.tar.gz
+sudo mv wordpress/* /var/www/html/
+
+4. Configure WordPress (wp-config.php)
+sudo mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php  
+# Rename wp-config-sample.php to wp-config.php
+ To Edit File 👍
+sudo vi  /var/www/html/wp-config.php
+
+
+
+
+
+Then, we need to updated the wp-config.php file to include the database details:
+
+define('DB_NAME', 'wordpress');  // Database name
+define('DB_USER', 'wpuser');     // Database username
+define('DB_PASSWORD', '12345');  // Database password
+define('DB_HOST', 'localhost');  // Database host (localhost because the database is on the same server)
+
+5. Set Permissions
+To ensure Apache has the correct permissions to access and modify the WordPress files, we used the following commands:
+sudo chown -R www-data:www-data /var/www/html/
+sudo chmod -R 755 /var/www/html/
+6. Restart Apache
+We restarted Apache to ensure the changes take effect:
+
+sudo systemctl restart apache2  # Restart Apache service
+
+7. Remove Apache Default Index Page
+To prevent Apache from serving the default Apache2 page and instead serve WordPress, we removed the default index.html file:
+
+sudo rm /var/www/html/index.html  # Remove Apache's default index.html page
+
+8. Accessing WordPress Installation
+You then accessed the WordPress installation page via your server's IP address in the browser:
+
+http://<your-server-ip>
+
+9. Set Up WordPress (Through Web Interface)
+During the WordPress setup, you filled in details like the site title, admin username, password, and email.
+
+
