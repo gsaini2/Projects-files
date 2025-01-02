@@ -1,0 +1,49 @@
+1. Create a Simple Web App (Node.js + Express)
+mkdir simple-web-app
+cd simple-web-app
+npm init -y
+
+Step 2: Install Express
+npm install express
+
+Step 3: Create the App
+create file app.js
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Define a simple route
+app.get('/', (req, res) => {
+  res.send('Hello, World! 🌍');
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+Step 4: Run the App Locally
+node app.js
+
+2. Containerize the App Using Docker
+Step 1: Create a Dockerfile
+# Use an official Node.js runtime as the base image
+FROM node:14
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the package.json and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app is running on
+EXPOSE 3000
+
+# Run the application when the container starts
+CMD ["node", "app.js"]
+
